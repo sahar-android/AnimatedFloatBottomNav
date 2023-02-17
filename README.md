@@ -1,11 +1,6 @@
 # AnimatedFloatBottomNav
 A beautiful animated bottom nav for compose
 
-##about lib and me:
-
-This is an early version of a library built for bottom navigation in compose project. I'm trying to make it in that way to everyone can use it easily. You just need to add icon and title.
-I want to add some features and improve it so if you have any problems, ideas or criticisms I would really appritiate it if you leave me a comment :)
-email: sahar.simyari@gmail.com
 
 # Demo
 ![libpreview](https://user-images.githubusercontent.com/46859947/219660373-1c137d9f-7d78-4ed1-9690-c32b06d6ce58.gif)
@@ -84,6 +79,10 @@ in your compposable You can add any number of icons and tabs to the navigation b
         }
     )
 
+##about lib and me:
 
+This is an early version of a library built for bottom navigation in compose project. I'm trying to make it in that way to everyone can use it easily. You just need to add icon and title.
+I want to add some features and improve it so if you have any problems, ideas or criticisms I would really appritiate it if you leave me a comment :)
+email: sahar.simyari@gmail.com
 
 
