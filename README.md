@@ -1,88 +1,127 @@
 # AnimatedFloatBottomNav
-A beautiful animated bottom nav for compose
 
+[![](https://jitpack.io/v/sahar-android/AnimatedFloatBottomNav.svg)](https://jitpack.io/#sahar-android/AnimatedFloatBottomNav)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-# Demo
-![libpreview](https://user-images.githubusercontent.com/46859947/219660373-1c137d9f-7d78-4ed1-9690-c32b06d6ce58.gif)
+An animated, curved floating bottom navigation bar for **Jetpack Compose**.
+Pass a list of titles and icons, get an animated bar back.
 
-# Usage
+## Demo
 
-Step1
+![AnimatedFloatBottomNav demo](https://user-images.githubusercontent.com/46859947/219660373-1c137d9f-7d78-4ed1-9690-c32b06d6ce58.gif)
 
-add maven { url 'https://jitpack.io' } to 
+## Features
 
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+- Animated, curved floating bottom bar built with Jetpack Compose
+- Any number of tabs: one title and one icon per tab
+- One callback that gives you the index of the selected tab
+- Available through JitPack, no extra setup
+
+## Installation
+
+### 1. Add JitPack to your repositories
+
+In `settings.gradle`:
+
+```groovy
+dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
+}
+```
 
-in setting.gradle
+Kotlin DSL (`settings.gradle.kts`):
 
-or
- in allprojects{} your root build.gradle at the end of repositories
- 
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
 
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+If your project still declares repositories in the root `build.gradle`, add the
+same `maven { url 'https://jitpack.io' }` line to `allprojects { repositories { ... } }`.
 
+### 2. Add the dependency
 
-Step2
+```groovy
+dependencies {
+    implementation 'com.github.sahar-android:AnimatedFloatBottomNav:1.0.0'
+}
+```
 
-[![](https://jitpack.io/v/sahar-android/AnimatedFloatBottomNav.svg)](https://jitpack.io/#sahar-android/AnimatedFloatBottomNav)
+Kotlin DSL:
 
-add dependency
+```kotlin
+dependencies {
+    implementation("com.github.sahar-android:AnimatedFloatBottomNav:1.0.0")
+}
+```
 
-implementation 'com.github.sahar-android:AnimatedFloatBottomNav:1.0.0'
+## Usage
 
-step3
+```kotlin
+val titles = listOf("Guests", "Traffic", "Settings")
+val icons = listOf(R.drawable.guests, R.drawable.traffic, R.drawable.settings)
 
-in your compposable You can add any number of icons and tabs to the navigation by create list of title string and icon int
+var selected by remember { mutableStateOf(titles.first()) }
 
-
-    val titleList = listOf("title1", "title2", "title3")
-
-    val iconList = listOf(R.drawable.guests, R.drawable.traffic, R.drawable.settings)
-    var s by remember { mutableStateOf("") }
-    Scaffold(modifier = Modifier
-        .fillMaxSize(),
-        content = {
-            Box(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize()
-            ) {
-                Text(
-                    text = s,
-                    fontSize = 22.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.Center)
-                        .padding(top = 150.dp),
-                )
-            }
-        },
-        bottomBar = {
-            SimyappBottomNav.MyNav(titleList, iconList, Color.Red) {
-
-                when (it) {
-                    0 -> s = "title1"
-                    1 -> s = "title2"
-                    2 -> s = "title3"
-
-                }
-            }
+Scaffold(
+    bottomBar = {
+        SimyappBottomNav.MyNav(titles, icons, Color.Red) { index ->
+            selected = titles[index]
         }
-    )
+    }
+) { padding ->
+    Box(
+        modifier = Modifier
+            .padding(padding)
+            .fillMaxSize()
+    ) {
+        Text(
+            text = selected,
+            fontSize = 22.sp,
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+}
+```
 
-##about lib and me:
+### Parameters
 
-This is an early version of a library built for bottom navigation in compose project. I'm trying to make it in that way to everyone can use it easily. You just need to add icon and title.
-I want to add some features and improve it so if you have any problems, ideas or criticisms I would really appritiate it if you leave me a comment :)
-email: sahar.simyari@gmail.com
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| titles | `List<String>` | Title of each tab |
+| icons | `List<Int>` | Drawable resource id of each tab icon, in the same order as `titles` |
+| color | `Color` | Accent color of the bar |
+| onItemSelected | `(Int) -> Unit` | Called with the index of the tab the user selected |
 
+Both lists must have the same size.
 
+## Roadmap
+
+This is an early version and I plan to keep improving it. Ideas:
+
+- Support `ImageVector` icons
+- Let the caller control the selected index (state hoisting)
+- More style options (colors, sizes, animation)
+
+## Contributing
+
+Issues and pull requests are welcome. If you find a bug or have an idea, please
+[open an issue](../../issues).
+
+## Author
+
+Sahar Simyari — Android developer
+[LinkedIn](https://www.linkedin.com/in/sahar-simyari/)
+
+## License
+
+Released under the MIT License. See [LICENSE](LICENSE).
